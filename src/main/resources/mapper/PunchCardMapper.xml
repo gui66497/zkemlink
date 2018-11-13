@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzjz.zkemlink.mapper.PunchCardMapper">
+  <resultMap id="BaseResultMap" type="com.zzjz.zkemlink.bean.PunchedCard">
+    <result column="year" jdbcType="VARCHAR" property="year" />
+    <result column="month" jdbcType="VARCHAR" property="month" />
+    <result column="day" jdbcType="VARCHAR" property="day" />
+    <result column="hour" jdbcType="VARCHAR" property="hour" />
+    <result column="minute" jdbcType="VARCHAR" property="minute" />
+    <result column="second" jdbcType="VARCHAR" property="second" />
+    <result column="uid" jdbcType="VARCHAR" property="uid" />
+    <result column="mode" jdbcType="VARCHAR" property="mode" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+      year, month, day, hour, minute, second, uid, mode, date
+  </sql>
+
+  <insert id="insert" parameterType="com.zzjz.zkemlink.bean.PunchedCard">
+    insert into tb_punch_card (<include refid="Base_Column_List"/>)
+    values (#{year,jdbcType=VARCHAR}, #{month,jdbcType=VARCHAR}, #{day,jdbcType=VARCHAR}, 
+      #{hour,jdbcType=VARCHAR}, #{minute,jdbcType=VARCHAR}, #{second,jdbcType=VARCHAR}, 
+      #{uid,jdbcType=VARCHAR}, #{mode,jdbcType=VARCHAR}, #{date,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzjz.zkemlink.bean.PunchedCard">
+    insert into tb_punch_card
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="year != null">
+        year,
+      </if>
+      <if test="month != null">
+        month,
+      </if>
+      <if test="day != null">
+        day,
+      </if>
+      <if test="hour != null">
+        hour,
+      </if>
+      <if test="minute != null">
+        minute,
+      </if>
+      <if test="second != null">
+        second,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="mode != null">
+        mode,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="year != null">
+        #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="month != null">
+        #{month,jdbcType=VARCHAR},
+      </if>
+      <if test="day != null">
+        #{day,jdbcType=VARCHAR},
+      </if>
+      <if test="hour != null">
+        #{hour,jdbcType=VARCHAR},
+      </if>
+      <if test="minute != null">
+        #{minute,jdbcType=VARCHAR},
+      </if>
+      <if test="second != null">
+        #{second,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="mode != null">
+        #{mode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <insert id="addPunchCardList" useGeneratedKeys="true" parameterType="java.util.List">
+    insert into tb_punch_card (
+    <include refid="Base_Column_List"/>
+    )
+    values
+    <foreach collection="res" item="item" index="index" separator=",">
+      (#{item.year}, #{item.month}, #{item.day}, #{item.hour},
+      #{item.minute}, #{item.second},#{item.uid},#{item.mode},#{item.date})
+    </foreach>
+  </insert>
+  <delete id="delAfter" parameterType="java.util.Date">
+    delete from tb_punch_card
+    where date >= #{date,jdbcType=DATE}
+  </delete>
+  <select id="queryAfter" parameterType="java.util.Date" resultMap="BaseResultMap">
+    select year, month, day, hour, minute, second, uid, mode,
+    DATE_FORMAT(date,'%Y-%m-%d %H:%i:%s') as date
+    from tb_punch_card
+    where date >= #{date,jdbcType=DATE}
+  </select>
+</mapper>

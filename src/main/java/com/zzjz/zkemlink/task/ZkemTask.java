@@ -43,13 +43,11 @@ public class ZkemTask {
     @Scheduled(cron = "0 50 23 * * ? ")//每日23:50触发
     public void addTodayAttendance() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH时mm分ss秒");
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy年MM月dd日 HH时mm分ss秒");
         Date date = new Date();
         LOGGER.info("###本定时任务为添加考勤定时任务，当前时间为：" + sdf.format(date));
         try {
-            List<PunchedCard> punchedCards = zkemService.getLogsToday();
-            //将记录存储到tb_punch
-            punchCardService.batchInsert(punchedCards);
-
+            zkemService.refillOneDayLog(zkemService.getTodayZero());
         } catch (ConnectException e) {
             e.printStackTrace();
         }

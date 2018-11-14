@@ -106,7 +106,7 @@ public class ZkemTest extends ZkemlinkApplicationTests {
     @Test
     public void testRefillOneDayLog() throws ParseException, ConnectException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = sdf.parse("2018-11-12");
+        Date date = sdf.parse("2018-11-13");
         boolean res = zkemService.refillOneDayLog(date);
         System.out.println(res);
     }

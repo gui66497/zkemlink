@@ -1,6 +1,5 @@
 package com.zzjz.zkemlink.task;
 
-import com.zzjz.zkemlink.bean.PunchedCard;
 import com.zzjz.zkemlink.service.PunchCardService;
 import com.zzjz.zkemlink.service.ZkemService;
 import org.slf4j.Logger;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Component;
 import java.net.ConnectException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author 房桂堂

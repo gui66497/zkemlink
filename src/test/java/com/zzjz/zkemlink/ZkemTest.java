@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.net.ConnectException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -81,7 +80,7 @@ public class ZkemTest extends ZkemlinkApplicationTests {
     public void testGetOneDayLog() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
-            Date date = sdf.parse("2018-07-25");
+            Date date = sdf.parse("2019-01-02");
             List<PunchedCard> res = zkemService.getOneDayLog(date);
             for (PunchedCard punchedCard : res) {
                 LOGGER.info("id:" + punchedCard.getUid()
@@ -98,7 +97,7 @@ public class ZkemTest extends ZkemlinkApplicationTests {
     @Test
     public void testRefillPunchCardAfter() throws ParseException, ConnectException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = sdf.parse("2018-11-01 00:00:00");
+        Date date = sdf.parse("2019-08-02 00:00:00");
         boolean res = zkemService.refillPunchCardAfter(date);
         System.out.println(res);
     }
@@ -106,7 +105,7 @@ public class ZkemTest extends ZkemlinkApplicationTests {
     @Test
     public void testRefillOneDayLog() throws ParseException, ConnectException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = sdf.parse("2018-11-13");
+        Date date = sdf.parse("2019-04-25");
         boolean res = zkemService.refillOneDayLog(date);
         System.out.println(res);
     }
